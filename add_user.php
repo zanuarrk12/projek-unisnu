@@ -24,6 +24,8 @@
         $citizen_type = $_POST['citizen_type'];
         $md5_password = md5($password);
         $issued_date = date('Y-m-d');
+        $district_code = $_POST['district'];
+        $generate_date = $_POST['generate_date'];
 
         if($gender == 'Laki-Laki'){
             $generate_date = date('dmy', strtotime($birth_date));
@@ -32,7 +34,9 @@
             $generate_date = $woman_date.date('my', strtotime($birth_date));
         }
 
-        $citizen_id = $_POST['district'].$generate_date.'0001';
+        $last_four_digits = str_pad(mt_rand(1, 9999), 4, '0', STR_PAD_LEFT);
+        $citizen_id = $district_code.$generate_date. $last_four_digits;
+        echo "NIK yang dihasilkan: " . $citizen_id;
 
         if($password != $repassword){
             echo "<script>alert('Password dan Konfirmasi Password tidak sesuai!')</script>";
